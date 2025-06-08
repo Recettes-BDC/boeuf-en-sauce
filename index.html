@@ -1,0 +1,223 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mon Livre de Recettes</title>
+  <style>
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: color 0.3s, border 0.3s, background-color 0.3s;
+      border: 2px solid transparent;
+      display: inline-block;
+    }
+    nav a:hover {
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+main {
+  margin-bottom: 40px;
+}
+
+}
+    main section {
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    main section h2 {
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+    main section p {
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+    main section h3 {
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+
+    footer {
+      background-color: #ddd;
+      text-align: center;
+      padding: 15px;
+    }
+
+    /* === Nouvelle section des 6 blocs === */
+    .blocks-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .block {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      flex-shrink: 0;
+    }
+    .block a {
+      position: absolute;
+      bottom: 3px;
+      left: 3px;
+      font-size: 9px;
+      color: white;
+      background-color: rgba(0,0,0,0.5);
+      padding: 2px 4px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      max-width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .block a:hover {
+      background-color: rgba(255,255,255,0.7);
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+
+
+  </style>
+</head>
+<body>
+  <!-- Bandeau principal avec nom du site et logo -->
+  <header style="background-color: black; color: white; padding: 15px;">
+    <img src="lapin.JPEG" alt="Logo du site" style="width: 50px; height: 50px; vertical-align: middle;" />
+    <h1 style="display: inline-block; margin-left: 20px; vertical-align: middle;">Les recettes du BDC</h1>
+  </header>
+
+  <!-- Ligne grise de séparation -->
+  <hr style="border: none; border-top: 2px solid #ccc; margin: 0;" />
+
+  <!-- Deuxième bandeau horizontal avec 6 blocs de lien + barre de recherche -->
+  <nav>
+    <div style="display: flex; justify-content: space-around; padding: 15px; background-color: #e2725b; flex-wrap: wrap; gap: 10px;">
+      <a href="https://recettes-bdc.github.io/Acceuil/" >Acceuil</a>
+      <a href="https://recettes-bdc.github.io/Astuce/" >Astuce</a>
+      <a href="https://recettes-bdc.github.io/Liste/" >Liste</a>
+      <a href="https://recettes-bdc.github.io/Contact/" >Contact</a>
+     
+      <div style="flex: 1 1 100%; text-align: center;">
+        <input
+          type="text"
+          id="searchBar"
+          placeholder="Rechercher une page..."
+          onkeyup="filterLinks()"
+          style="padding: 8px; width: 60%; background-color: #fff4f0; border: 1px solid #ccc; color: black; font-weight: bold;"
+        />
+       <!-- Dans la div du searchResults -->
+      <div id="searchResults" style="margin-top: 10px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;"></div>
+
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    const pages = [
+      { name: 'Accueil', url: 'https://recettes-bdc.github.io/Acceuil/' },
+      { name: 'Lasagne', url: 'https://recettes-bdc.github.io/Lasagne/' },
+      { name: 'Gratin de gourgette', url: 'https://recettes-bdc.github.io/Gratin-courgette/' },
+      { name: 'Pancake de pomme de terre', url: 'https://recettes-bdc.github.io/Pancake-patate/' },
+      { name: 'Soupe de citrouille', url: 'https://recettes-bdc.github.io/Soupe-citrouille/' },
+      { name: 'Filet de poisson', url: 'https://recettes-bdc.github.io/Filet-poisson/' },
+      { name: 'Risotto aux crevettes et citron', url: 'https://recettes-bdc.github.io/Risotto-crevette/' },
+      { name: 'Gnocchis maison', url: 'https://recettes-bdc.github.io/Gnocchis/' },
+      { name: 'Boeuf en sauce', url: 'https://recettes-bdc.github.io/Boeuf-en-sauce/' },
+    ];
+
+function filterLinks() {
+  const input = document.getElementById('searchBar').value.toLowerCase();
+  const results = document.getElementById('searchResults');
+  results.innerHTML = '';
+
+  if (input.trim() === '') return;
+
+  const filtered = pages.filter(page => page.name.toLowerCase().includes(input));
+
+  filtered.forEach(page => {
+    const link = document.createElement('a');
+    link.href = page.url;
+    link.textContent = page.name;
+    link.style.color = 'white';             // texte blanc par défaut
+    link.style.textDecoration = 'none';
+    link.style.fontWeight = 'bold';
+    link.style.padding = '5px 10px';
+    link.style.border = '1px solid rgba(255,255,255,0.5)';
+    link.style.borderRadius = '4px';
+    link.style.transition = 'background-color 0.3s, color 0.3s';
+    link.style.display = 'inline-block';
+
+    link.addEventListener('mouseenter', () => {
+      link.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+      link.style.color = '#ffffff';            // gris clair au survol
+    });
+    link.addEventListener('mouseleave', () => {
+      link.style.backgroundColor = '';
+      link.style.color = 'white';           // retour au blanc
+    });
+
+    results.appendChild(link);
+  });
+}
+
+  </script>
+
+  
+
+  <main>
+    <section>
+      <h2>Bienvenue sur le meilleur site de recettes de Sorbonne</h2>
+      <p>Explorez une variété de plats délicieux, simples et gourmands à préparer chez vous. Ce site vous guide pas à pas avec des instructions claires pour réussir vos repas, du plus simple au plus festif.</p>
+      <h3>Nos spécialitées</h3>
+      
+      <!-- Nouvelle section 6 blocs -->
+      <div class="blocks-container">
+        <div class="block" style="background-image: url('https://th.bing.com/th/id/R.253200a93fb47a4ad058c4d359d9bb4b?rik=37A1H7Nl9iKo8Q&pid=ImgRaw&r=0');">
+          <a href="https://recettes-bdc.github.io/Lasagne/">Lasagne</a>
+        </div>
+        <div class="block" style="background-image: url('https://www.mesdepanneurs.fr/sites/mesdepanneurs.fr/files/inline-images/citrouille%20allum%C3%A9e.jpg');">
+          <a href="https://recettes-bdc.github.io/Soupe-citrouille/">Halloween</a>
+        </div>
+        <div class="block" style="background-image: url('https://th.bing.com/th/id/R.22d738398aa6dcad76859963be893902?rik=qGa%2b5r0PqTxi6w&riu=http%3a%2f%2fchefpatate.fr%2fwp-content%2fuploads%2f2011%2f09%2fgnocchis-traditionnels.jpg&ehk=Sa0PlxHFwJgNVkBVnlJM0Yzcx%2bCFJg%2fIPZvTeWRvvIg%3d&risl=&pid=ImgRaw&r=0');">
+          <a href="https://recettes-bdc.github.io/Gnocchis/">Gnocchis</a>
+        </div>
+        <div class="block" style="background-image: url('https://th.bing.com/th/id/R.318cb1358d88d0d0061e6ef0bc49548a?rik=cNbMZmiQuhxIiw&pid=ImgRaw&r=0');">
+          <a href="https://recettes-bdc.github.io/Boeuf-en-sauce/">Boeuf en sauce</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+
+  <!-- Bandeau bas de page avec contacts -->
+  <footer style="background-color: #ddd; text-align: center; padding: 15px;">
+    <p>maxime.bondil@etu.sorbonne-universite.fr</p>
+  </footer>
+</body>
+</html>
